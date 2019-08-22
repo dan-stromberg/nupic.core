@@ -22,6 +22,13 @@
 cmake_minimum_required(VERSION 3.3)
 project(nupic_core CXX)
 
+if(NOT $ENV{CC} STREQUAL "")
+  set(CMAKE_C_COMPILER $ENV{CC})
+endif()
+if(NOT $ENV{CXX} STREQUAL "")
+  set(CMAKE_CXX_COMPILER $ENV{CXX})
+endif()
+
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}")
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
