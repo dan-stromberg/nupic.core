@@ -201,7 +201,8 @@ def generateExtensions():
     subprocess.check_call(
         ["cmake", REPO_DIR, "-DCMAKE_INSTALL_PREFIX={}".format(releaseDir),
          "-DPY_EXTENSIONS_DIR={}".format(pyExtensionsDir)])
-    print('betty 9')
+    print('betty 9: {}'.format(os.getcwd()))
+    print('betty 9.1: {}'.format(os.system('ls -l')))
     subprocess.check_call(["make", "-j3"])
     print('betty 10')
     subprocess.check_call(["make", "install"])
