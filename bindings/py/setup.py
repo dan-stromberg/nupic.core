@@ -180,22 +180,38 @@ def getExtensionFiles(platform):
 
 
 def generateExtensions():
+  print('betty 1')
   tmpDir = tempfile.mkdtemp()
+  print('betty 2')
   cwd = os.getcwd()
+  print('betty 3')
   try:
+    print('betty 4')
+    scriptsDir = os.path.join(tmpDir, "scripts")
+    print('betty 5')
     scriptsDir = os.path.join(tmpDir, "scripts")
     releaseDir = os.path.join(tmpDir, "release")
+    releaseDir = os.path.join(tmpDir, "release")
+    print('betty 6')
     pyExtensionsDir = os.path.join(PY_BINDINGS, "src", "nupic", "bindings")
+    print('betty 7')
     os.mkdir(scriptsDir)
     os.chdir(scriptsDir)
+    print('betty 8')
     subprocess.check_call(
         ["cmake", REPO_DIR, "-DCMAKE_INSTALL_PREFIX={}".format(releaseDir),
          "-DPY_EXTENSIONS_DIR={}".format(pyExtensionsDir)])
+    print('betty 9')
     subprocess.check_call(["make", "-j3"])
+    print('betty 10')
     subprocess.check_call(["make", "install"])
+    print('betty 11')
   finally:
+    print('betty 12')
     shutil.rmtree(tmpDir, ignore_errors=True)
+    print('betty 13')
     os.chdir(cwd)
+    print('betty 14')
 
 
 
