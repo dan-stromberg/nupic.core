@@ -205,7 +205,7 @@ def generateExtensions():
     subprocess.check_call(list_)
     print('betty 9: {}'.format(os.getcwd()))
     print('betty 9.1: {}'.format(os.system('ls -l')))
-    subprocess.check_call(["make", "-j3"])
+    subprocess.check_call(["make", "-j1"])
     print('betty 10')
     subprocess.check_call(["make", "install"])
     print('betty 11')
