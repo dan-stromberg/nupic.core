@@ -163,12 +163,18 @@ def getExtensionFileNames(platform):
 
 
 def getExtensionFiles(platform):
+  print('wilma 1')
   files = getExtensionFileNames(platform)
+  print('wilma 2')
   for f in files:
+    print('wilma 3')
     if not os.path.exists(f):
+      print('wilma 4')
       generateExtensions()
+      print('wilma 5')
       break
 
+  print('wilma 6')
   return files
 
 
