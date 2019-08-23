@@ -35,15 +35,17 @@ setupdir = os.getcwd()
 egginfo = "pip-egg-info"
 
 if not os.path.exists(egginfo) and os.path.exists(os.path.join("../..", egginfo)):
-  print "Symlinking pip-egg-info"
+  print("Symlinking pip-egg-info")
   os.symlink(os.path.join("../..", egginfo), os.path.join(REPO_DIR, "bindings/py", egginfo))
+  print('fred 1')
 
+print('fred 2')
 __file__ = os.path.join(setupdir, filename)
 
 def replacement_run(self):
   self.mkpath(self.egg_info)
 
-  installer = self.distribution.fetch_build_egg
+  # installer = self.distribution.fetch_build_egg
 
   for ep in egg_info.iter_entry_points('egg_info.writers'):
     # require=False is the change we're making from pip
@@ -54,5 +56,8 @@ def replacement_run(self):
 
   self.find_sources()
 
+print('fred 3')
 egg_info.egg_info.run = replacement_run
-execfile(__file__)
+print('fred 4 {}'.format(__file__))
+with open(__file__) as file_:
+    exec(file_.read())
