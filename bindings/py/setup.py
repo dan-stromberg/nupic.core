@@ -198,7 +198,7 @@ def generateExtensions():
     os.mkdir(scriptsDir)
     os.chdir(scriptsDir)
     print('betty 7.1')
-    subprocess.check_call('/bin/echo', 'betty 7.2!')
+    subprocess.check_call(['/bin/echo', 'betty 7.2!'])
     print('betty 8')
     list_ = ["cmake", REPO_DIR, "-DCMAKE_INSTALL_PREFIX={}".format(releaseDir), "-DPY_EXTENSIONS_DIR={}".format(pyExtensionsDir)]
     print('betty 8.1: {}'.format(list_))
