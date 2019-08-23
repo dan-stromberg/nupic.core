@@ -21,6 +21,7 @@
 
 """This file builds and installs the NuPIC Core Python bindings."""
 
+print('barney 0')
 import glob
 import os
 import shutil
@@ -33,12 +34,14 @@ from setuptools.command.test import test as BaseTestCommand
 from distutils.core import Extension
 
 
+print('barney 1')
 PY_BINDINGS = os.path.dirname(os.path.realpath(__file__))
 REPO_DIR = os.path.abspath(os.path.join(PY_BINDINGS, os.pardir, os.pardir))
 DARWIN_PLATFORM = "darwin"
 LINUX_PLATFORM = "linux"
 UNIX_PLATFORMS = [LINUX_PLATFORM, DARWIN_PLATFORM]
 WINDOWS_PLATFORMS = ["windows"]
+print('barney 2')
 
 
 def getVersion():
@@ -190,23 +193,28 @@ def generateExtensions():
 
 
 
+print('barney 3')
 if __name__ == "__main__":
+  print('barney 4')
   platform = getPlatformInfo()
 
   if platform == DARWIN_PLATFORM and not "ARCHFLAGS" in os.environ:
     raise Exception("To build NuPIC Core bindings in OS X, you must "
                     "`export ARCHFLAGS=\"-arch x86_64\"`.")
 
+  print('barney 5')
   # Run CMake if extension files are missing.
   getExtensionFiles(platform)
 
+  print('barney 6')
   # Copy the proto files into the proto Python package.
   destDir = os.path.relpath(os.path.join("src", "nupic", "proto"))
   for protoPath in glob.glob(os.path.relpath(os.path.join(
       "..", "..", "src", "nupic", "proto", "*.capnp"))):
     shutil.copy(protoPath, destDir)
 
-  print "\nSetup SWIG Python module"
+  print('barney 7')
+  print("\nSetup SWIG Python module")
   setup(
     name="nupic.bindings",
     version=getVersion(),
