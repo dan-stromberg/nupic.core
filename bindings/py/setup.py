@@ -21,7 +21,6 @@
 
 """This file builds and installs the NuPIC Core Python bindings."""
 
-print('barney 0')
 import glob
 import os
 import shutil
@@ -34,14 +33,12 @@ from setuptools.command.test import test as BaseTestCommand
 from distutils.core import Extension
 
 
-print('barney 1')
 PY_BINDINGS = os.path.dirname(os.path.realpath(__file__))
 REPO_DIR = os.path.abspath(os.path.join(PY_BINDINGS, os.pardir, os.pardir))
 DARWIN_PLATFORM = "darwin"
 LINUX_PLATFORM = "linux"
 UNIX_PLATFORMS = [LINUX_PLATFORM, DARWIN_PLATFORM]
 WINDOWS_PLATFORMS = ["windows"]
-print('barney 2')
 
 
 def getVersion():
@@ -163,82 +160,53 @@ def getExtensionFileNames(platform):
 
 
 def getExtensionFiles(platform):
-  print('wilma 1')
   files = getExtensionFileNames(platform)
-  print('wilma 2')
   for f in files:
-    print('wilma 3')
     if not os.path.exists(f):
-      print('wilma 4')
       generateExtensions()
-      print('wilma 5')
       break
 
-  print('wilma 6')
   return files
 
 
 
 def generateExtensions():
-  print('betty 1')
   tmpDir = tempfile.mkdtemp()
-  print('betty 2')
   cwd = os.getcwd()
-  print('betty 3')
   try:
-    print('betty 4')
     scriptsDir = os.path.join(tmpDir, "scripts")
-    print('betty 5')
     scriptsDir = os.path.join(tmpDir, "scripts")
     releaseDir = os.path.join(tmpDir, "release")
     releaseDir = os.path.join(tmpDir, "release")
-    print('betty 6')
     pyExtensionsDir = os.path.join(PY_BINDINGS, "src", "nupic", "bindings")
-    print('betty 7')
     os.mkdir(scriptsDir)
     os.chdir(scriptsDir)
-    print('betty 7.1')
-    subprocess.check_call(['/bin/echo', 'betty 7.2!'])
-    print('betty 8')
     list_ = ["cmake", REPO_DIR, "-DCMAKE_INSTALL_PREFIX={}".format(releaseDir), "-DPY_EXTENSIONS_DIR={}".format(pyExtensionsDir)]
-    print('betty 8.1: {}'.format(list_))
     subprocess.check_call(list_)
-    print('betty 9: {}'.format(os.getcwd()))
-    print('betty 9.1: {}'.format(os.system('ls -l')))
     subprocess.check_call(["make", "-j1"])
-    print('betty 10')
     subprocess.check_call(["make", "install"])
-    print('betty 11')
   finally:
-    print('betty 12')
     shutil.rmtree(tmpDir, ignore_errors=True)
-    print('betty 13')
     os.chdir(cwd)
-    print('betty 14')
 
 
 
-print('barney 3')
 if __name__ == "__main__":
-  print('barney 4')
   platform = getPlatformInfo()
 
   if platform == DARWIN_PLATFORM and not "ARCHFLAGS" in os.environ:
     raise Exception("To build NuPIC Core bindings in OS X, you must "
                     "`export ARCHFLAGS=\"-arch x86_64\"`.")
 
-  print('barney 5')
   # Run CMake if extension files are missing.
   getExtensionFiles(platform)
 
-  print('barney 6')
   # Copy the proto files into the proto Python package.
   destDir = os.path.relpath(os.path.join("src", "nupic", "proto"))
   for protoPath in glob.glob(os.path.relpath(os.path.join(
       "..", "..", "src", "nupic", "proto", "*.capnp"))):
     shutil.copy(protoPath, destDir)
 
-  print('barney 7')
   print("\nSetup SWIG Python module")
   setup(
     name="nupic.bindings",
